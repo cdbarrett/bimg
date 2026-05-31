@@ -1,0 +1,9 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "simplewebp",
+    hdrs = ["simplewebp.h"],
+    include_prefix = "simplewebp",
+    strip_include_prefix = ".",
+    visibility = ["//:__subpackages__"],
+)

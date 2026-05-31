@@ -1,0 +1,21 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "nvmath",
+    srcs = glob(["*.cpp"]),
+    hdrs = glob(["*.h"]),
+    copts = [
+        "-march=native",
+        "-D__STDC_VERSION__=0",
+        "-Wno-class-memaccess",
+        "-Wno-unknown-warning-option",
+        "-Wno-unused-but-set-variable",
+        "-Wno-nontrivial-memcall",
+    ],
+    cxxopts = ["-std=c++20"],
+    include_prefix = "nvmath",
+    strip_include_prefix = ".",
+    textual_hdrs = glob(["*.inl"]),
+    visibility = ["//:__subpackages__"],
+    deps = ["//3rdparty/nvtt/nvcore"],
+)

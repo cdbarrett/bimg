@@ -1,0 +1,10 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "tinyexr",
+    hdrs = ["tinyexr.h"],
+    include_prefix = "tinyexr",
+    strip_include_prefix = ".",
+    visibility = ["//:__subpackages__"],
+    deps = ["//3rdparty/tinyexr/deps/miniz"],
+)

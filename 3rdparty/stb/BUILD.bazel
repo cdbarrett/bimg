@@ -1,0 +1,12 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "stb",
+    hdrs = [
+        "stb_image.h",
+        "stb_image_resize.h",
+    ],
+    include_prefix = "stb",
+    strip_include_prefix = ".",
+    visibility = ["//:__subpackages__"],
+)

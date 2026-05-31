@@ -1,0 +1,10 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "lodepng",
+    hdrs = ["lodepng.h"],
+    include_prefix = "lodepng",
+    strip_include_prefix = ".",
+    textual_hdrs = ["lodepng.cpp"],
+    visibility = ["//:__subpackages__"],
+)

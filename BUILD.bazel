@@ -1,0 +1,124 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+config_setting(
+    name = "dbg",
+    values = {"compilation_mode": "dbg"},
+)
+
+config_setting(
+    name = "opt",
+    values = {"compilation_mode": "opt"},
+)
+
+cc_library(
+    name = "bimg",
+    srcs = [
+        "src/bimg_p.h",
+        "src/config.h",
+        "src/image.cpp",
+        "src/image_gnf.cpp",
+    ],
+    hdrs = ["include/bimg/bimg.h"],
+    copts = [
+        "-march=native",
+        "-pthread",
+    ],
+    cxxopts = ["-std=c++20"],
+    defines = select({
+        ":dbg": ["BX_CONFIG_DEBUG=1"],
+        "//conditions:default": ["BX_CONFIG_DEBUG=0"],
+    }),
+    linkopts = [
+        "-pthread",
+        "-ldl",
+        "-lrt",
+    ],
+    strip_include_prefix = "include",
+    target_compatible_with = ["@platforms//os:linux"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//3rdparty/astc-encoder",
+        "@bx",
+    ],
+)
+
+cc_library(
+    name = "bimg-decode",
+    srcs = [
+        "src/bimg_p.h",
+        "src/config.h",
+        "src/image_decode.cpp",
+    ],
+    hdrs = [
+        "include/bimg/bimg.h",
+        "include/bimg/decode.h",
+    ],
+    copts = [
+        "-Wno-unused-but-set-variable",
+        "-march=native",
+        "-pthread",
+    ],
+    cxxopts = ["-std=c++20"],
+    defines = select({
+        ":dbg": ["BX_CONFIG_DEBUG=1"],
+        "//conditions:default": ["BX_CONFIG_DEBUG=0"],
+    }),
+    linkopts = [
+        "-pthread",
+        "-ldl",
+        "-lrt",
+    ],
+    strip_include_prefix = "include",
+    target_compatible_with = ["@platforms//os:linux"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//3rdparty/lodepng",
+        "//3rdparty/simplewebp",
+        "//3rdparty/stb",
+        "//3rdparty/tinyexr",
+        "@bx",
+    ],
+)
+
+cc_library(
+    name = "bimg-encode",
+    srcs = [
+        "src/bimg_p.h",
+        "src/config.h",
+        "src/image_cubemap_filter.cpp",
+        "src/image_encode.cpp",
+    ],
+    hdrs = [
+        "include/bimg/bimg.h",
+        "include/bimg/encode.h",
+    ],
+    copts = [
+        "-march=native",
+        "-pthread",
+    ],
+    cxxopts = ["-std=c++20"],
+    defines = select({
+        ":dbg": ["BX_CONFIG_DEBUG=1"],
+        "//conditions:default": ["BX_CONFIG_DEBUG=0"],
+    }),
+    linkopts = [
+        "-pthread",
+        "-ldl",
+        "-lrt",
+    ],
+    strip_include_prefix = "include",
+    target_compatible_with = ["@platforms//os:linux"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//3rdparty/astc-encoder",
+        "//3rdparty/edtaa3",
+        "//3rdparty/etc1",
+        "//3rdparty/etc2",
+        "//3rdparty/iqa",
+        "//3rdparty/libsquish",
+        "//3rdparty/nvtt",
+        "//3rdparty/pvrtc",
+        "//3rdparty/stb",
+        "@bx",
+    ],
+)

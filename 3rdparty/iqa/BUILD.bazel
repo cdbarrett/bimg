@@ -1,0 +1,13 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "iqa",
+    srcs = glob(["source/*.c"]),
+    hdrs = glob(["include/*.h"]),
+    copts = [
+        "-march=native",
+        "-std=c99",
+    ],
+    strip_include_prefix = "include",
+    visibility = ["//:__subpackages__"],
+)

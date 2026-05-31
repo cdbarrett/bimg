@@ -1,0 +1,22 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "bc6h",
+    srcs = glob(["*.cpp"]),
+    hdrs = glob(["*.h"]),
+    copts = [
+        "-march=native",
+        "-D__STDC_VERSION__=0",
+        "-Wno-class-memaccess",
+        "-Wno-unknown-warning-option",
+        "-Wno-unused-but-set-variable",
+    ],
+    cxxopts = ["-std=c++20"],
+    include_prefix = "bc6h",
+    strip_include_prefix = ".",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//3rdparty/nvtt/nvcore",
+        "//3rdparty/nvtt/nvmath",
+    ],
+)

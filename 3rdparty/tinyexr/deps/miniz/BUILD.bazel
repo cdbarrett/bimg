@@ -1,0 +1,10 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "miniz",
+    hdrs = ["miniz.h"],
+    include_prefix = "miniz",
+    strip_include_prefix = ".",
+    textual_hdrs = ["miniz.c"],
+    visibility = ["//:__subpackages__"],
+)
